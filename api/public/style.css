@@ -197,7 +197,7 @@ iframe {
 .mapElements:hover {
   cursor: pointer;
   box-shadow: 20px 10px 20px rgba(255, 255, 255, 0.19),
-    0 6px 6px rgba(5, 89, 150, 0.803);
+    0 6px 6px rgba(167, 168, 168, 0.803);
 }
 
 .notification {
@@ -339,4 +339,8 @@ iframe {
 .fade-out {
   animation: fadeOut 0.7s ease-in-out;
   -webkit-animation: fadeOut 0.7s ease-in-out;
+}
+
+#mapId{
+  background: rgb(6, 193, 183);
 }

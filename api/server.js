@@ -4,7 +4,7 @@ const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
 const path = require("path");
-const cors = require('cors')
+const cors = require("cors");
 
 // initialize the app
 const app = express();
@@ -18,11 +18,9 @@ const io = socketIo(server);
 // serving static files
 app.use(express.static(path.join(__dirname, "public")));
 
-  // cors 
-  const options = {
-    
-  }
-  app.use(cors())
+// cors
+const options = {};
+app.use(cors());
 // handling connection events
 io.on("connection", (socket) => {
   console.log("a new user has connected!");
@@ -33,30 +31,28 @@ io.on("connection", (socket) => {
   });
 
   // // listining for bin Id from the client
-    socket.on("binID", (id) => {
-        console.log(`BindId from frontend Client: ${id}`);
-        var msg = "yo yo yo "
-        var msg1 = JSON.stringify(msg)
-        // sending messgaes to the client
-        // for zixflow api
-        const options = {
-          method: "POST",
-          headers: {
-            Authorization:
-              "Bearer 242ea44404d900baaa1db83c75010f63aec2acb0ced315c71e740fe266838e88f6cc77d253278e52",
-            "Content-Type": "application/json",
-          },
-          body: '{"to":"916002293409","phoneId":"231065823421330","type":"text","text":{"preview_url":true,"body":""},"source":"","linkWithRecord":"false","submissionStatus":true}',
-        };
+  socket.on("binID", (id) => {
+    console.log(`BindId from frontend Client: ${id}`);
+    // sending messgaes to the client
+    // for zixflow api
+    const options = {
+      method: "POST",
+      headers: {
+        Authorization:
+          "Bearer <add bearer token here from zixflow>",
+        "Content-Type": "application/json",
+      },
+      body: '{"to":"916002293409","phoneId":"231065823421330","type":"text","text":{"preview_url":true,"body":""},"source":"","linkWithRecord":"false","submissionStatus":true}',
+    };
 
-        bins.Dimapur.forEach((driver) => {
-            if (id === driver[2]) {
-              var text = `Notice from SGDMS\nName: ${driver[4]}\nBinid:${driver[2]}\nLocation: ${driver[1]}GoogleLink : ${driver[6]}`;
-              let bodyObject = JSON.parse(options.body);
-              bodyObject.text.body = text;
-              options.body = JSON.stringify(bodyObject);
-            }
-        })
+    bins.Dimapur.forEach((driver) => {
+      if (id === driver[2]) {
+        var text = `Notice from SGDMS\nName: ${driver[4]}\nBinid:${driver[2]}\nLocation: ${driver[1]}GoogleLink : ${driver[6]}`;
+        let bodyObject = JSON.parse(options.body);
+        bodyObject.text.body = text;
+        options.body = JSON.stringify(bodyObject);
+      }
+    });
     fetch(
       "https://api.zixflow.com/api/v1/campaign/whatsapp/message/send",
       options
@@ -84,7 +80,7 @@ app.get("/", (req, res) => {
 // });
 
 //starting the server
-const PORT = 3000;
+const PORT = 8000;
 server.listen(PORT, () => {
   console.log(`express server running on PORT ${PORT}`);
 });

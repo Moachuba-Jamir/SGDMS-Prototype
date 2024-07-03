@@ -1,14 +1,9 @@
 // connecting to the server 
-const socket = io("http://localhost:3000")
-// google maps url
-
-
+const socket = io("http://localhost:8000")
 import bins from './bins.json' with {type:"json"}
 var mybins = bins.Dimapur.length;
 console.log(mybins)
 console.log(bins.Dimapur[0][4])
-
-
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -94,8 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
         })(bins.Dimapur[i][2]);
         
-        // for map buttons
-        // for audio fx
+        // for map buttons and audio fx
         var mapClick = document.getElementById('mapClick');
         var waNotify = document.getElementById('waNotify');
         var mapBtn = newCard.querySelector('.mapBtn')
@@ -135,13 +129,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             };
         })(bins.Dimapur[i][2]);
-
-   
          duplicateCards.appendChild(newCard)
-       
     }
 })
-
 
 socket.on('connect', () => {
     console.log("Client has connected to the server ")
